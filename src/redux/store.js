@@ -41,6 +41,7 @@ export const store = configureStore({
 
 export const persistor = persistStore(store);
 
+// console.log('first')
 // ===============================USING REDUX-TOOLKIT=================================
 
 // import { configureStore } from '@reduxjs/toolkit';
