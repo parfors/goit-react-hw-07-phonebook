@@ -1,18 +1,7 @@
 import { combineReducers, configureStore } from '@reduxjs/toolkit';
-import {
-  FLUSH,
-  PAUSE,
-  PERSIST,
-  persistStore,
-  persistReducer,
-  PURGE,
-  REGISTER,
-  REHYDRATE,
-} from 'redux-persist';
-import storage from 'redux-persist/lib/storage';
-import contactsReducer from './contact-Slice';
-import filterReducer from './filter-Slice';
-import colorReducer from './color-Slice';
+import colorReducer from './color/color-Slice';
+import contactsReducer from './contacts/contacts-reducer';
+import filterReducer from './filter/filter-Slice';
 
 const rootReducer = combineReducers({
   items: contactsReducer,
@@ -20,26 +9,11 @@ const rootReducer = combineReducers({
   color: colorReducer,
 });
 
-const persistConfig = {
-  key: 'contacts',
-  storage,
-};
-
-const persistedReducer = persistReducer(persistConfig, rootReducer);
-
 export const store = configureStore({
   reducer: {
-    contacts: persistedReducer,
+    contacts: rootReducer,
   },
-  middleware: getDefaultMiddleware =>
-    getDefaultMiddleware({
-      serializableCheck: {
-        ignoredActions: [FLUSH, REHYDRATE, PAUSE, PERSIST, PURGE, REGISTER],
-      },
-    }),
 });
-
-export const persistor = persistStore(store);
 
 // console.log('first')
 // ===============================USING REDUX-TOOLKIT=================================

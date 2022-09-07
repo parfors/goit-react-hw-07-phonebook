@@ -6,15 +6,21 @@ import {
   SectionStyled,
   TitleStyled,
 } from 'components';
+import { useEffect } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
-import { addContact } from 'redux/contact-Slice';
-import { setFilter } from 'redux/filter-Slice';
+import { fetchContacts } from 'redux/contacts/contact-operations';
+import { addContact } from 'redux/contacts/contact-operations';
+import { setFilter } from 'redux/filter/filter-Slice';
 
 export const App = () => {
   const dispatch = useDispatch();
-  const contacts = useSelector(state => state.contacts.items);
+  const contacts = useSelector(state => state.contacts.items.contacts);
   const filter = useSelector(state => state.contacts.filter);
   const color = useSelector(state => state.contacts.color);
+
+  useEffect(() => {
+    dispatch(fetchContacts());
+  }, [dispatch]);
 
   const formSubmitHandler = data => {
     const normalizedData = data.name.toLowerCase();
@@ -27,7 +33,6 @@ export const App = () => {
 
   const radioOptions = ['green', 'red', 'grey'];
   const normalizedFilter = filter.toLowerCase();
-  console.log(contacts);
   const visibleContacts = contacts.filter(el =>
     el.name.toLowerCase().includes(normalizedFilter)
   );

@@ -1,7 +1,7 @@
 import { InputRadioStyled, LabelRadio } from 'components';
 import PropTypes from 'prop-types';
 import { useDispatch, useSelector } from 'react-redux';
-import { setColor } from 'redux/color-Slice';
+import { setColor } from 'redux/color/color-Slice';
 
 export const RadioInput = ({ radioOptions }) => {
   const color = useSelector(state => state.contacts.color);
