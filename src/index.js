@@ -1,5 +1,4 @@
 import { App } from 'components/App';
-import * as api from 'helpers/api';
 import React from 'react';
 import ReactDOM from 'react-dom/client';
 import { Provider } from 'react-redux';
