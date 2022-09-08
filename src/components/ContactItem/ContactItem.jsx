@@ -7,11 +7,12 @@ import {
 import PropTypes from 'prop-types';
 import { useState, memo } from 'react';
 import { useDispatch } from 'react-redux';
-import { removeContact } from 'redux/contacts/contact-Slice';
+import { deleteContact } from 'redux/contacts/contact-operations';
 
 const ContactItemTest = ({ name, number, id }) => {
   const [agreement, setAgreement] = useState(false);
   const dispatch = useDispatch();
+
   return (
     <>
       <ListItem>
@@ -20,7 +21,7 @@ const ContactItemTest = ({ name, number, id }) => {
         <CheckBoxInput onChange={() => setAgreement(!agreement)} />
         <ButtonDeleteStyled
           disabled={!agreement}
-          onClick={() => dispatch(removeContact(id))}
+          onClick={() => dispatch(deleteContact(id))}
           type="button"
         >
           Delete

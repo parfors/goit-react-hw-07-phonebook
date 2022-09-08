@@ -8,15 +8,17 @@ import {
 } from 'components';
 import { useEffect } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
-import { fetchContacts } from 'redux/contacts/contact-operations';
-import { addContact } from 'redux/contacts/contact-operations';
+import { addContact, fetchContacts } from 'redux/contacts/contact-operations';
 import { setFilter } from 'redux/filter/filter-Slice';
+import { ToastContainer } from 'react-toastify';
+import 'react-toastify/dist/ReactToastify.css';
 
 export const App = () => {
   const dispatch = useDispatch();
   const contacts = useSelector(state => state.contacts.items.contacts);
   const filter = useSelector(state => state.contacts.filter);
   const color = useSelector(state => state.contacts.color);
+  const loading = useSelector(state => state.contacts.items.loading);
 
   useEffect(() => {
     dispatch(fetchContacts());
@@ -39,6 +41,8 @@ export const App = () => {
 
   return (
     <>
+      <ToastContainer />
+
       <SectionStyled style={{ backgroundColor: color }}>
         <TitleStyled>Phonebook</TitleStyled>
         <Form onSubmit={formSubmitHandler} />
@@ -47,7 +51,11 @@ export const App = () => {
           value={filter}
           onChange={e => dispatch(setFilter(e.target.value))}
         />
-        <ContactsList contacts={visibleContacts} />
+        {loading ? (
+          <TitleStyled>Loading...</TitleStyled>
+        ) : (
+          <ContactsList contacts={visibleContacts} />
+        )}
         <RadioInput radioOptions={radioOptions} />
       </SectionStyled>
     </>
