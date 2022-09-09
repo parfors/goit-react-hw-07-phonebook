@@ -1,5 +1,4 @@
 import { createReducer } from '@reduxjs/toolkit';
-import { toast } from 'react-toastify';
 import { addContact, deleteContact, fetchContacts } from './contact-operations';
 
 const initialState = {
@@ -28,7 +27,6 @@ const contactsReducer = createReducer(initialState, {
   [addContact.fulfilled]: (state, { payload }) => {
     state.contacts.push(payload);
     state.loading = false;
-    toast.success('Contact is added');
   },
   [addContact.rejected]: (state, { payload }) => {
     state.error = payload;
@@ -41,7 +39,6 @@ const contactsReducer = createReducer(initialState, {
   [deleteContact.fulfilled]: (state, { payload }) => {
     state.loading = false;
     state.contacts = state.contacts.filter(el => el.id !== payload);
-    toast.success('Contact was deleted');
   },
   [deleteContact.rejected]: (state, { payload }) => {
     state.error = payload;
