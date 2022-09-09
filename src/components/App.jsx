@@ -25,11 +25,11 @@ export const App = () => {
   }, [dispatch]);
 
   const formSubmitHandler = data => {
-    const normalizedData = data.name.toLowerCase();
-    if (contacts.some(el => el.name.toLowerCase() === normalizedData)) {
-      alert(`${data.name} is already in contacts`);
-      return;
-    }
+    // const normalizedData = data.name.toLowerCase();
+    // if (contacts.some(el => el.name.toLowerCase() === normalizedData)) {
+    //   alert(`${data.name} is already in contacts`);
+    //   return;
+    // }
     dispatch(addContact(data));
   };
 
